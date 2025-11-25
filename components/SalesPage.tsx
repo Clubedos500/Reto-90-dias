@@ -1,13 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { ShieldCheck, Download, Play, Star, ChevronDown, ChevronUp, Menu, X, Calendar, Flame } from 'lucide-react';
+import { ShieldCheck, Download, Play, Star, ChevronDown, ChevronUp, Calendar, Flame } from 'lucide-react';
 import { TESTIMONIALS, FAQS, MODULES, BENEFITS } from '../constants';
 import { Button } from './Button';
 
 const SalesPage: React.FC = () => {
   const navigate = useNavigate();
   const [openFaq, setOpenFaq] = useState<number | null>(null);
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   // SEO Schema Injection
   useEffect(() => {
@@ -21,7 +20,7 @@ const SalesPage: React.FC = () => {
       "image": "https://images.unsplash.com/photo-1517836357463-d25dfeac3438?auto=format&fit=crop&w=1200&q=80",
       "offers": {
         "@type": "Offer",
-        "price": "12.00",
+        "price": "9,90",
         "priceCurrency": "EUR",
         "availability": "https://schema.org/InStock"
       },
@@ -58,86 +57,41 @@ const SalesPage: React.FC = () => {
       {/* --- BACKGROUND EFFECTS SYSTEM --- */}
       
       {/* 1. Static Dark Base */}
-      <div className="fixed inset-0 bg-[#020204] z-[-5]" />
+      <div className="fixed inset-0 bg-[#030014] z-[-5]" />
 
-      {/* 2. Moving Grid Pattern */}
-      <div className="fixed inset-0 z-[-4] opacity-30 pointer-events-none">
+      {/* 2. Radial Aurora Gradient (Top) */}
+      <div className="fixed inset-0 z-[-4] bg-[radial-gradient(ellipse_80%_50%_at_50%_-20%,rgba(120,119,198,0.3),rgba(255,255,255,0))]" />
+
+      {/* 3. Moving Grid Pattern (Subtle) */}
+      <div className="fixed inset-0 z-[-3] opacity-20 pointer-events-none">
         <div className="absolute inset-0 bg-grid-pattern animate-grid-flow" />
-      </div>
-
-      {/* 3. Glowing Orbs (Blobs) */}
-      <div className="fixed inset-0 z-[-3] pointer-events-none overflow-hidden">
-        <div className="absolute top-[-20%] left-[20%] w-[600px] h-[600px] bg-brand-purple/20 rounded-full mix-blend-screen filter blur-[150px] animate-blob" />
-        <div className="absolute top-[30%] right-[-10%] w-[500px] h-[500px] bg-brand-neon/10 rounded-full mix-blend-screen filter blur-[120px] animate-blob animation-delay-2000" />
-        <div className="absolute bottom-[-10%] left-[-10%] w-[800px] h-[800px] bg-blue-900/20 rounded-full mix-blend-screen filter blur-[150px] animate-blob animation-delay-4000" />
       </div>
 
       {/* 4. Floating Particles (Stars) */}
       <div className="fixed inset-0 z-[-2] pointer-events-none">
-         {[...Array(20)].map((_, i) => (
+         {[...Array(30)].map((_, i) => (
             <div 
               key={i}
-              className="absolute bg-white rounded-full opacity-20 animate-float"
+              className="absolute bg-white rounded-full opacity-40 animate-float"
               style={{
                 top: `${Math.random() * 100}%`,
                 left: `${Math.random() * 100}%`,
-                width: `${Math.random() * 3 + 1}px`,
-                height: `${Math.random() * 3 + 1}px`,
+                width: `${Math.random() * 2 + 1}px`,
+                height: `${Math.random() * 2 + 1}px`,
                 animationDelay: `${Math.random() * 5}s`,
-                animationDuration: `${Math.random() * 10 + 10}s`
+                animationDuration: `${Math.random() * 10 + 15}s`
               }}
             />
          ))}
       </div>
       
       {/* 5. Noise Overlay (Texture) */}
-      <div className="fixed inset-0 z-[-1] bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-15 brightness-100 contrast-150 pointer-events-none"></div>
+      <div className="fixed inset-0 z-[-1] bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-10 brightness-100 contrast-150 pointer-events-none"></div>
 
       {/* --- END BACKGROUND EFFECTS --- */}
 
-
-      {/* Sticky Navigation */}
-      <nav className="fixed w-full z-50 glass border-b border-white/5 transition-all duration-300 top-0">
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex items-center justify-between h-20">
-            <div className="flex-shrink-0 cursor-pointer" onClick={() => window.scrollTo(0,0)}>
-              <span className="text-2xl font-black text-white tracking-tighter italic flex items-center gap-1 group">
-                RETO<span className="text-brand-neon group-hover:text-glow transition-all duration-300">90DÍAS</span>
-              </span>
-            </div>
-            <div className="hidden md:block">
-              <div className="flex items-center space-x-8">
-                <a href="#beneficios" className="text-sm font-medium text-gray-300 hover:text-white transition-colors uppercase tracking-wide hover:scale-105 transform duration-200">Método</a>
-                <a href="#fases" className="text-sm font-medium text-gray-300 hover:text-white transition-colors uppercase tracking-wide hover:scale-105 transform duration-200">Fases</a>
-                <a href="#testimonios" className="text-sm font-medium text-gray-300 hover:text-white transition-colors uppercase tracking-wide hover:scale-105 transform duration-200">Resultados</a>
-                <Button onClick={scrollToOffer} className="!py-2 !px-6 !text-sm !font-bold">
-                  Unirme al Reto — €12
-                </Button>
-              </div>
-            </div>
-            <div className="md:hidden">
-              <button onClick={() => setIsMenuOpen(!isMenuOpen)} className="text-white p-2 hover:bg-white/10 rounded-lg transition-colors">
-                {isMenuOpen ? <X /> : <Menu />}
-              </button>
-            </div>
-          </div>
-        </div>
-        {/* Mobile Menu */}
-        {isMenuOpen && (
-          <div className="md:hidden glass border-t border-white/10 absolute w-full animate-fade-in-up">
-            <div className="px-4 pt-4 pb-6 space-y-2">
-              <a href="#beneficios" onClick={() => setIsMenuOpen(false)} className="block px-3 py-2 text-base font-medium text-gray-300 hover:text-white hover:bg-white/5 rounded-lg">Método</a>
-              <a href="#fases" onClick={() => setIsMenuOpen(false)} className="block px-3 py-2 text-base font-medium text-gray-300 hover:text-white hover:bg-white/5 rounded-lg">Fases</a>
-              <Button onClick={scrollToOffer} fullWidth className="mt-4">
-                Comenzar Reto
-              </Button>
-            </div>
-          </div>
-        )}
-      </nav>
-
       {/* Hero Section */}
-      <section className="relative pt-32 pb-20 lg:pt-40 lg:pb-32 z-10 overflow-hidden">
+      <section className="relative pt-20 pb-20 lg:pt-32 lg:pb-32 z-10 overflow-hidden">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative">
           
           {/* Spotlight Effect behind text */}
@@ -171,7 +125,7 @@ const SalesPage: React.FC = () => {
                 <span className="text-sm text-gray-500 line-through decoration-brand-neon/50">€59.00</span>
                 <span className="text-xs bg-brand-neon text-brand-dark font-bold px-2 py-0.5 rounded-sm group-hover:bg-white transition-colors">AHORRA 80%</span>
               </div>
-              <span className="text-3xl font-bold text-white tracking-tight group-hover:text-brand-neon transition-colors duration-300">€12.00</span>
+              <span className="text-3xl font-bold text-white tracking-tight group-hover:text-brand-neon transition-colors duration-300">€9,90</span>
             </div>
           </div>
 
